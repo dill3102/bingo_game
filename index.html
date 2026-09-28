@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Bingo 抽選ツール</title>
-  <meta name="description" content="無料・広告なし・登録不要のビンゴ（Bingo）抽選ツール。Space / Enter で番号を抽選、最大値は自由に設定可能。途中で閉じても続きから再開できます。日本語・English・中文対応。" />
-  <meta name="keywords" content="Bingo,ビンゴ,抽選,抽選機,ビンゴマシン,無料,広告なし,bingo number generator,宾果" />
+  <meta name="description" content="無料・広告なし・登録不要のビンゴ（Bingo）抽選ツール。Space / Enter で番号を抽選、最大値は自由に設定可能。途中で閉じても続きから再開できます。日本語・English・中文・한국어対応。" />
+  <meta name="keywords" content="Bingo,ビンゴ,抽選,抽選機,ビンゴマシン,無料,広告なし,bingo number generator,宾果,賓果,빙고" />
   <meta name="author" content="dill3102" />
   <meta name="theme-color" content="#071122" />
   <link rel="canonical" href="https://dill3102.github.io/bingo_game/" />
@@ -23,6 +23,8 @@
   <meta property="og:locale" content="ja_JP" />
   <meta property="og:locale:alternate" content="en_US" />
   <meta property="og:locale:alternate" content="zh_CN" />
+  <meta property="og:locale:alternate" content="zh_TW" />
+  <meta property="og:locale:alternate" content="ko_KR" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:creator" content="@JZJ8G1OSTaYjU5k" />
 
@@ -35,7 +37,7 @@
     "description": "無料・広告なし・登録不要のビンゴ抽選ツール。",
     "applicationCategory": "GameApplication",
     "operatingSystem": "Any",
-    "inLanguage": ["ja", "en", "zh-CN"],
+    "inLanguage": ["ja", "en", "zh-CN", "zh-TW", "ko"],
     "isAccessibleForFree": true,
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" },
     "author": {
@@ -115,9 +117,11 @@
         <button id="resetBtn" class="secondary" data-i18n="reset">リセット</button>
         <button id="settingsBtn" class="secondary" data-i18n="settings">設定</button>
         <select id="langSelect" aria-label="Language">
-          <option value="ja">日本語</option>
+          <option value="ja">Japanese</option>
           <option value="en">English</option>
-          <option value="zh">中文</option>
+          <option value="zh">Chinese (Simplified)</option>
+          <option value="zh-TW">Chinese (Traditional)</option>
+          <option value="ko">Korean</option>
         </select>
       </div>
     </header>
@@ -159,7 +163,7 @@
       <div class="muted" id="listInfo"></div>
       <h3 data-i18n="drawnOrder">排出済み（排出順）</h3>
       <div id="drawnList" class="chip-grid"></div>
-      <h3 data-i18n="remainingAsc">未排出（小さい順）</h3>
+      <h3 data-i18n="remainingAsc">未排出</h3>
       <div id="remainingList" class="chip-grid"></div>
       <div class="modal-actions">
         <span class="small" data-i18n="closeHint">Esc / F1 で閉じる</span>
@@ -185,7 +189,7 @@
     <form class="modal-box narrow" id="settingsForm" novalidate>
       <h2 id="settingsTitle" data-i18n="settingsTitle">設定</h2>
       <div class="field">
-        <label for="maxInput" data-i18n="maxLabel">最大値（1〜MAX）</label>
+        <label for="maxInput" data-i18n="maxLabel">最大値（2〜999）</label>
         <input id="maxInput" type="number" min="2" max="999" step="1" inputmode="numeric" required />
         <span class="small" data-i18n="maxChangeNote">最大値を変更すると抽選はリセットされます。</span>
       </div>

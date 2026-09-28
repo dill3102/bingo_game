@@ -6,7 +6,7 @@
 - F1 で既存排出の確認（未排出は小さい順）、Esc / F1 で閉じる
 - 設定画面で最大値・履歴の列数を変更可能
 - 状態はブラウザの localStorage に保存され、再訪時に続きから再開
-- 日本語 / English / 中文
+- Japanese / English / Chinese (Simplified / Traditional) / Korean
 
 公開URL: https://dill3102.github.io/bingo_game/
 
