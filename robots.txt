@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://dill3102.github.io/bing_game/sitemap.xml
+Sitemap: https://dill3102.github.io/bingo_game/sitemap.xml

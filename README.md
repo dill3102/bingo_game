@@ -8,6 +8,6 @@
 - 状態はブラウザの localStorage に保存され、再訪時に続きから再開
 - 日本語 / English / 中文
 
-公開URL: https://dill3102.github.io/bing_game/
+公開URL: https://dill3102.github.io/bingo_game/
 
 作者: [GitHub](https://github.com/dill3102) / [Twitter (X)](https://x.com/JZJ8G1OSTaYjU5k)
