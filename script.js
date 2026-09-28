@@ -56,7 +56,7 @@
       saved: '設定を保存しました。',
       invalidMax: (lim) => `最大値は 2〜${lim} の整数で入力してください。`,
       aboutTitle: 'このサイトについて',
-      about: 'ビンゴ大会用の無料の抽選ツールです。広告なし・登録不要で、データはすべてお使いのブラウザ内（localStorage）にのみ保存されます。ページを閉じても続きから再開できます。',
+      about: 'ビンゴ大会用の無料の抽選ツールです。広告なし・登録不要で、抽選データはお使いのブラウザ内（localStorage）にのみ保存されます。ページを閉じても続きから再開できます。アクセス解析のため Google Analytics を使用しています。',
       author: '作者',
     },
     en: {
@@ -95,7 +95,7 @@
       saved: 'Settings saved.',
       invalidMax: (lim) => `Enter a whole number from 2 to ${lim}.`,
       aboutTitle: 'About',
-      about: 'A free bingo number drawing tool. No ads, no sign-up. All data stays in your browser (localStorage), so you can close the page and resume later.',
+      about: 'A free bingo number drawing tool. No ads, no sign-up. Draw data is stored only in your browser (localStorage), so you can close the page and resume later. This site uses Google Analytics for access analytics.',
       author: 'Author',
     },
     zh: {
@@ -134,7 +134,7 @@
       saved: '设置已保存。',
       invalidMax: (lim) => `请输入 2〜${lim} 之间的整数。`,
       aboutTitle: '关于本站',
-      about: '免费的宾果抽号工具。无广告、无需注册，所有数据仅保存在您的浏览器（localStorage）中，关闭页面后也可继续。',
+      about: '免费的宾果抽号工具。无广告、无需注册，抽号数据仅保存在您的浏览器（localStorage）中，关闭页面后也可继续。本站使用 Google Analytics 进行访问分析。',
       author: '作者',
     },
     'zh-TW': {
@@ -173,7 +173,7 @@
       saved: '設定已儲存。',
       invalidMax: (lim) => `請輸入 2〜${lim} 之間的整數。`,
       aboutTitle: '關於本站',
-      about: '免費的賓果抽號工具。無廣告、免註冊，所有資料僅儲存在您的瀏覽器（localStorage）中，關閉頁面後也能繼續。',
+      about: '免費的賓果抽號工具。無廣告、免註冊，抽號資料僅儲存在您的瀏覽器（localStorage）中，關閉頁面後也能繼續。本站使用 Google Analytics 進行流量分析。',
       author: '作者',
     },
     ko: {
@@ -212,7 +212,7 @@
       saved: '설정을 저장했습니다.',
       invalidMax: (lim) => `2〜${lim} 사이의 정수를 입력해 주세요.`,
       aboutTitle: '이 사이트에 대하여',
-      about: '빙고 대회용 무료 추첨 도구입니다. 광고 없음, 가입 불필요. 모든 데이터는 브라우저(localStorage)에만 저장되며, 페이지를 닫아도 이어서 진행할 수 있습니다.',
+      about: '빙고 대회용 무료 추첨 도구입니다. 광고 없음, 가입 불필요. 추첨 데이터는 브라우저(localStorage)에만 저장되며, 페이지를 닫아도 이어서 진행할 수 있습니다. 접속 분석을 위해 Google Analytics를 사용합니다.',
       author: '제작자',
     },
   };
