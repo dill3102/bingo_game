@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dill3102.github.io/bing_game/sitemap.xml

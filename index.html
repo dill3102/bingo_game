@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bingo 抽選ツール</title>
+  <meta name="description" content="無料・広告なし・登録不要のビンゴ（Bingo）抽選ツール。Space / Enter で番号を抽選、最大値は自由に設定可能。途中で閉じても続きから再開できます。日本語・English・中文対応。" />
+  <meta name="keywords" content="Bingo,ビンゴ,抽選,抽選機,ビンゴマシン,無料,広告なし,bingo number generator,宾果" />
+  <meta name="author" content="dill3102" />
+  <meta name="theme-color" content="#071122" />
+  <link rel="canonical" href="https://dill3102.github.io/bing_game/" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <!-- OGP -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Bingo 抽選ツール" />
+  <meta property="og:title" content="Bingo 抽選ツール｜無料・広告なし" />
+  <meta property="og:description" content="無料・広告なし・登録不要のビンゴ抽選ツール。Space / Enter で抽選、最大値も自由に設定できます。" />
+  <meta property="og:url" content="https://dill3102.github.io/bing_game/" />
+  <meta property="og:image" content="https://dill3102.github.io/bing_game/ogp.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:locale:alternate" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:creator" content="@JZJ8G1OSTaYjU5k" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Bingo 抽選ツール",
+    "url": "https://dill3102.github.io/bing_game/",
+    "description": "無料・広告なし・登録不要のビンゴ抽選ツール。",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Any",
+    "inLanguage": ["ja", "en", "zh-CN"],
+    "isAccessibleForFree": true,
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" },
+    "author": {
+      "@type": "Person",
+      "name": "dill3102",
+      "sameAs": ["https://github.com/dill3102", "https://x.com/JZJ8G1OSTaYjU5k"]
+    }
+  }
+  </script>
+
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#06b6d4;--muted:#94a3b8;--white:#e6f0ff;--danger:#f87171;--digits:2}
+    *{box-sizing:border-box}
+    html,body{min-height:100%;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Hiragino Kaku Gothic ProN","Microsoft YaHei",Meiryo,Arial,sans-serif}
+    body{background:linear-gradient(180deg,#021027 0%,#071122 100%);color:var(--white);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px;gap:16px}
+    .wrap{width:100%;max-width:920px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:12px;padding:20px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+    header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px}
+    h1{font-size:20px;margin:0;color:var(--accent);display:flex;align-items:center;gap:8px}
+    h1 img{width:28px;height:28px}
+    .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    button{background:var(--accent);border:none;color:#012;padding:10px 14px;border-radius:8px;font-weight:600;cursor:pointer;font:inherit;font-weight:600}
+    button:disabled{opacity:.5;cursor:default}
+    button.secondary{background:transparent;border:1px solid rgba(255,255,255,0.12);color:var(--white);padding:8px 12px}
+    button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    select,input{background:var(--card);color:var(--white);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:8px 10px;font:inherit}
+    main{display:flex;gap:18px;align-items:stretch}
+    .card{flex:1;background:rgba(255,255,255,0.02);padding:22px;border-radius:12px;text-align:center;display:flex;flex-direction:column;justify-content:center}
+    .bignum{font-size:clamp(64px,14vw,120px);font-weight:800;letter-spacing:4px;margin:6px 0;font-variant-numeric:tabular-nums}
+    .bignum.rolling{opacity:.55}
+    .muted{color:var(--muted);font-size:14px}
+    .info{display:flex;gap:12px;justify-content:center;margin-top:10px}
+    .info div{background:rgba(255,255,255,0.02);padding:8px 12px;border-radius:8px}
+    .small{font-size:12px;color:var(--muted)}
+    .history{width:320px;max-height:420px;overflow:auto;padding:12px;border-radius:8px;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.005))}
+
+    /* 番号チップ: 桁数に関わらず正方形。文字サイズは桁数(--digits)に合わせて縮小 */
+    .chip-grid{display:grid;gap:6px;margin-top:8px}
+    #historyList{grid-template-columns:repeat(var(--cols,5),minmax(0,1fr))}
+    .modal .chip-grid{grid-template-columns:repeat(auto-fill,minmax(calc(var(--digits) * 12px + 22px),1fr))}
+    .chip{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;container-type:inline-size;background:rgba(255,255,255,0.04);border-radius:8px;font-weight:700;color:var(--white);font-variant-numeric:tabular-nums;min-width:0}
+    .chip>span{font-size:min(calc(80cqi / var(--digits)),26px);line-height:1}
+    .chip.drawn{background:linear-gradient(90deg,rgba(6,182,212,0.18),rgba(6,182,212,0.07));color:var(--accent)}
+    .chip-grid .empty{grid-column:1/-1}
+
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);padding:16px}
+    .modal.open{display:flex}
+    .modal-box{background:var(--card);padding:18px 20px;border-radius:10px;width:100%;max-width:640px;max-height:85vh;overflow:auto;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+    .modal-box.narrow{max-width:420px}
+    .modal-box h2{margin:0 0 8px;font-size:18px}
+    .modal-box h3{margin:14px 0 0;font-size:14px;color:var(--muted);font-weight:600}
+    .modal-actions{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:16px}
+    .modal-actions .small{margin-right:auto}
+    .field{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+    .field label{font-size:13px;color:var(--muted)}
+    .error{color:var(--danger);font-size:13px;min-height:1em;margin-top:8px}
+    button.danger{background:var(--danger);color:#200}
+
+    .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--card);border:1px solid rgba(6,182,212,.4);color:var(--white);padding:10px 16px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+
+    .about{width:100%;max-width:920px;color:var(--muted);font-size:13px;line-height:1.7;padding:0 4px}
+    .about h2{font-size:14px;margin:0 0 4px;color:var(--white)}
+    .about p{margin:0 0 6px}
+    .about a{color:var(--accent)}
+    .links{display:flex;gap:14px;flex-wrap:wrap}
+
+    @media (max-width:720px){main{flex-direction:column}.history{width:100%}}
+  </style>
+</head>
+<body>
+  <div class="wrap" id="app">
+    <header>
+      <h1><img src="favicon.svg" alt="" /><span data-i18n="appTitle">Bingo 抽選</span></h1>
+      <div class="controls">
+        <button id="drawBtn">抽選 (Space / Enter)</button>
+        <button id="showBtn" class="secondary" title="F1">F1</button>
+        <button id="resetBtn" class="secondary" data-i18n="reset">リセット</button>
+        <button id="settingsBtn" class="secondary" data-i18n="settings">設定</button>
+        <select id="langSelect" aria-label="Language">
+          <option value="ja">日本語</option>
+          <option value="en">English</option>
+          <option value="zh">中文</option>
+        </select>
+      </div>
+    </header>
+
+    <main>
+      <section class="card">
+        <div class="muted" data-i18n="latest">最新抽選結果</div>
+        <div class="bignum" id="current">--</div>
+        <div class="info">
+          <div><span data-i18n="remaining">残り</span>: <strong id="remaining">--</strong></div>
+          <div><span data-i18n="total">総数</span>: <strong id="total">--</strong></div>
+        </div>
+        <div class="small" style="margin-top:12px" data-i18n="hint">
+          Space / Enter で抽選、F1 で既存排出を表示します。
+        </div>
+      </section>
+
+      <aside class="history" aria-live="polite">
+        <div class="muted" data-i18n="history">抽選履歴</div>
+        <div id="historyList" class="chip-grid"></div>
+      </aside>
+    </main>
+  </div>
+
+  <section class="about">
+    <h2 data-i18n="aboutTitle">このサイトについて</h2>
+    <p data-i18n="about">ビンゴ大会用の無料の抽選ツールです。広告なし・登録不要で、データはすべてお使いのブラウザ内（localStorage）にのみ保存されます。ページを閉じても続きから再開できます。</p>
+    <div class="links">
+      <span><span data-i18n="author">作者</span>: dill3102</span>
+      <a href="https://x.com/JZJ8G1OSTaYjU5k" target="_blank" rel="noopener me">Twitter (X)</a>
+      <a href="https://github.com/dill3102" target="_blank" rel="noopener me">GitHub</a>
+    </div>
+  </section>
+
+  <!-- 既存排出の確認 -->
+  <div class="modal" id="listModal" role="dialog" aria-modal="true" aria-labelledby="listTitle">
+    <div class="modal-box">
+      <h2 id="listTitle" data-i18n="listTitle">既存排出の確認</h2>
+      <div class="muted" id="listInfo"></div>
+      <h3 data-i18n="drawnOrder">排出済み（排出順）</h3>
+      <div id="drawnList" class="chip-grid"></div>
+      <h3 data-i18n="remainingAsc">未排出（小さい順）</h3>
+      <div id="remainingList" class="chip-grid"></div>
+      <div class="modal-actions">
+        <span class="small" data-i18n="closeHint">Esc / F1 で閉じる</span>
+        <button class="secondary" data-close data-i18n="close">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- リセット確認 -->
+  <div class="modal" id="resetModal" role="alertdialog" aria-modal="true" aria-labelledby="resetTitle">
+    <div class="modal-box narrow">
+      <h2 id="resetTitle" data-i18n="resetTitle">リセットしますか？</h2>
+      <p class="muted" data-i18n="resetBody">これまでの抽選結果は消去され、最初からやり直します。</p>
+      <div class="modal-actions">
+        <button id="resetNo" class="secondary" data-i18n="no">No</button>
+        <button id="resetOk" class="danger" data-i18n="ok">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 設定 -->
+  <div class="modal" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <form class="modal-box narrow" id="settingsForm" novalidate>
+      <h2 id="settingsTitle" data-i18n="settingsTitle">設定</h2>
+      <div class="field">
+        <label for="maxInput" data-i18n="maxLabel">最大値（1〜MAX）</label>
+        <input id="maxInput" type="number" min="2" max="999" step="1" inputmode="numeric" required />
+        <span class="small" data-i18n="maxChangeNote">最大値を変更すると抽選はリセットされます。</span>
+      </div>
+      <div class="field">
+        <label for="colsInput" data-i18n="colsLabel">抽選履歴の列数</label>
+        <select id="colsInput">
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="8">8</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+      <div class="error" id="settingsError" role="alert"></div>
+      <div class="modal-actions">
+        <button type="button" id="settingsCancel" class="secondary" data-i18n="cancel">キャンセル</button>
+        <button type="submit" data-i18n="save">保存</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
